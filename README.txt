@@ -1,0 +1,1 @@
+This is intended for my personal use.  It may not be pretty and it likely will never amount to much.  It is merely a testbed for playing around with game AI for vehicles.
