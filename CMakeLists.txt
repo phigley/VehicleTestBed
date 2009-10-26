@@ -9,6 +9,8 @@ include_directories(${OPENGL_INCLUDE_DIR})
 
 set(SOURCES
 	src/main.cpp
+	src/CarPhysics.h
+	src/CarPhysics.cpp
 	)
 
 
