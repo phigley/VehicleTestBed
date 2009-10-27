@@ -4,13 +4,33 @@
 
 namespace
 {
+	// It would be nice t move these into Window.
+	// But glfw does not support multiple windows,
+	// hence it does not have user-data associated with
+	// its reshape callback.
+	double projectionWidth = 1.0;
+	double projectionHeight = 1.0;
+
 	void GLFWCALL reshape( int w, int h )
 	{
 	   glViewport( 0, 0, (GLsizei)w, (GLsizei)h );
 
+		double adjustedProjectionWidth = projectionWidth;
+		double adjsutedProjectionHeight = projectionHeight;
+
+		// w/pw > h/ph
+		if (double(w)*projectionHeight >= double(h)*projectionWidth)
+		{
+			adjustedProjectionWidth = double(w)/double(h)*projectionHeight;
+		}
+		else
+		{
+			adjsutedProjectionHeight = double(h)/double(w)*projectionWidth;
+		}
+
 	   glMatrixMode( GL_PROJECTION );
 	   glLoadIdentity();
-	   gluOrtho2D(-w/2, w/2, -h/2, h/2);
+	   gluOrtho2D(-adjustedProjectionWidth/2, adjustedProjectionWidth/2, -adjsutedProjectionHeight/2, adjsutedProjectionHeight/2);
 	}
 }
 
@@ -62,4 +82,16 @@ Engine::Window::Window(int width, int height, const char* title)
 Engine::Window::~Window()
 {
 	glfwTerminate();
+}
+
+void Engine::Window::setProjectionSize(float width, float height)
+{
+	// Store the new size.
+	projectionWidth = width;
+	projectionHeight = height;
+
+	// Reshape the window.
+	int w,h;
+	glfwGetWindowSize(&w, &h);
+	reshape(w,h);
 }

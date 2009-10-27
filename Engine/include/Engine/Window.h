@@ -12,6 +12,8 @@ namespace Engine
 		Window(int width, int height, const char* title);
 		~Window();
 
+		void setProjectionSize(float width, float height);
+
 		bool isOpen() const { return glfwGetWindowParam( GLFW_OPENED ) == GL_TRUE; }
 	};
 }

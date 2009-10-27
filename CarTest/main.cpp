@@ -18,6 +18,7 @@ int main( void )
 	bool running = true;
 
 	Engine::Window window(800,600, "Vehicle Test Bed");
+	window.setProjectionSize(1000,1000);
 
 	Engine::Timer gameTime;
 	Vehicle vehicle;
