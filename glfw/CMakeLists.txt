@@ -1,5 +1,7 @@
 
 set(CORE_SOURCES
+	include/GL/glfw.h
+	lib/internal.h
 	lib/enable.c
 	lib/fullscreen.c
 	lib/glext.c

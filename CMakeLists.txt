@@ -1,11 +1,14 @@
 cmake_minimum_required(VERSION 2.6)
 project(VehicleTestBed)
 
+find_package(OpenGL REQUIRED)
+include_directories(${OPENGL_INCLUDE_DIR})
+
 add_subdirectory(glfw)
 include_directories(glfw/include)
 
-find_package(OpenGL REQUIRED)
-include_directories(${OPENGL_INCLUDE_DIR})
+add_subdirectory(Engine)
+include_directories(Engine/include)
 
 if(APPLE)
    set(GUI_TYPE MACOSX_BUNDLE)
@@ -26,6 +29,7 @@ set(SOURCES
 add_executable(testbed ${GUI_TYPE} ${SOURCES})
 target_link_libraries(testbed 
 	glfw 
+	Engine
 	${OPENGL_gl_LIBRARY}
 	${OPENGL_glu_LIBRARY}
 	${PLATFORM_LIBS}
