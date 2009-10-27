@@ -43,6 +43,9 @@ private:
 	Engine::Vector2	position_wc;		// position of car center in world coordinates
 	Engine::Vector2	velocity_wc;		// velocity vector of car in world coordinates
 
+	bool	rear_slip;
+	bool	front_slip;
+
 	float	angle;				// angle of car body orientation (in radians)
 	float	angularvelocity;
 };
