@@ -168,6 +168,8 @@ int main( void )
 	// Initialize GLFW
 	glfwInit();
 
+	glfwOpenWindowHint(GLFW_FSAA_SAMPLES, 4);
+
 	// Open an OpenGL window
 	if( !glfwOpenWindow( 800, 600, 0,0,0,0,0,0, GLFW_WINDOW ) )
 	{
