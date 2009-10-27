@@ -5,10 +5,10 @@ find_package(OpenGL REQUIRED)
 include_directories(${OPENGL_INCLUDE_DIR})
 
 add_subdirectory(glfw)
-include_directories(glfw/include)
+set(GLFW_INCLUDE_DIR ${CMAKE_SOURCE_DIR}/glfw/include)
 
 add_subdirectory(Engine)
-include_directories(Engine/include)
+set(ENGINE_INCLUDE_DIR ${CMAKE_SOURCE_DIR}/Engine/include)
 
 if(APPLE)
    set(GUI_TYPE MACOSX_BUNDLE)
@@ -17,20 +17,6 @@ if(APPLE)
    set(PLATFORM_LIBS ${CARBON_LIBRARY})
 endif(APPLE)
 
-set(SOURCES
-	src/main.cpp
-	src/CarPhysics.h
-	src/CarPhysics.cpp
-	src/Vector2.h
-	src/Vector2.cpp
-	)
+add_subdirectory(CarTest)
 
 
-add_executable(testbed ${GUI_TYPE} ${SOURCES})
-target_link_libraries(testbed 
-	glfw 
-	Engine
-	${OPENGL_gl_LIBRARY}
-	${OPENGL_glu_LIBRARY}
-	${PLATFORM_LIBS}
-	)
