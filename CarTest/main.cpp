@@ -4,10 +4,12 @@
 #include <stdlib.h>
 #include "Vehicle.h"
 #include "Engine.h"
+#include <algorithm>
 
 namespace
 {
 	const double   minimumFrameTime = 1/30.0;
+	const float    maximumDeltaTime = 0.1f;
 }
 
 
@@ -25,7 +27,7 @@ int main( void )
 
 	while (window.isOpen())
 	{
-		const float dt = float(gameTime.popFrameTime());
+		const float dt = std::min(float(gameTime.popFrameTime()), maximumDeltaTime);
 
 		vehicle.Update(dt);
 
