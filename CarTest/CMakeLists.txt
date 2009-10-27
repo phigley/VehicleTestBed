@@ -8,6 +8,8 @@ set(SOURCES
 	main.cpp
 	CarPhysics.h
 	CarPhysics.cpp
+	Vehicle.h
+	Vehicle.cpp
 	Vector2.h
 	Vector2.cpp
 	)
