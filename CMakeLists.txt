@@ -18,6 +18,8 @@ set(SOURCES
 	src/main.cpp
 	src/CarPhysics.h
 	src/CarPhysics.cpp
+	src/Vector2.h
+	src/Vector2.cpp
 	)
 
 
