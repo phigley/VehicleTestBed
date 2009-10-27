@@ -1,7 +1,7 @@
 #ifndef CARPHYSICS_H_
 #define CARPHYSICS_H_
 
-#include "Vector2.h"
+#include "Engine/Vector2.h"
 
 struct CarType
 {
@@ -33,15 +33,15 @@ public:
 
 	void Update(float deltaTime, float steerangle, float throttle, float brake);
 
-	const Vector2& getPosition() const { return position_wc; }
+	const Engine::Vector2& getPosition() const { return position_wc; }
 	float getFacing() const { return angle; }
 
 private:
 
 	const CarType& carType;
 
-	Vector2	position_wc;		// position of car center in world coordinates
-	Vector2	velocity_wc;		// velocity vector of car in world coordinates
+	Engine::Vector2	position_wc;		// position of car center in world coordinates
+	Engine::Vector2	velocity_wc;		// velocity vector of car in world coordinates
 
 	float	angle;				// angle of car body orientation (in radians)
 	float	angularvelocity;

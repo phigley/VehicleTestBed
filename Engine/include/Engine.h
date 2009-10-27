@@ -6,5 +6,6 @@
 #include "Engine/Timer.h"
 #include "Engine/FrameBlock.h"
 #include "Engine/Window.h"
+#include "Engine/Vector2.h"
 
 #endif // ENGINE_H_

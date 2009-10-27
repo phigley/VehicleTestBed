@@ -8,10 +8,12 @@ set(API_SOURCES
 	include/Engine/Timer.h
 	include/Engine/FrameBlock.h
 	include/Engine/Window.h
+	include/Engine/Vector2.h
 	)
 	
 set(IMPLEMENTATION_SOURCES
 	src/Window.cpp
+	src/Vector2.cpp
 	)
 	
 add_library(Engine STATIC

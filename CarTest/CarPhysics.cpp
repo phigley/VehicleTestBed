@@ -271,9 +271,6 @@ CarType::CarType(float b_, float c_, float h_, float mass_,
 CarPhysics::CarPhysics(const CarType& car_type)
 	: carType(car_type)
 
-	, position_wc(Vector2::Empty)
-	, velocity_wc(Vector2::Empty)
-
 	, angle(0.0f)
 	, angularvelocity(0.0f)
 {
@@ -292,7 +289,7 @@ void CarPhysics::Update(float delta_t, float steerangle, float throttle, float b
 
 	//	bangz: Velocity of Car. Vlat and Vlong
 	// transform velocity in world reference frame to velocity in car reference frame
-	const Vector2 velocity(
+	const Engine::Vector2 velocity(
 		 cs * velocity_wc.y + sn * velocity_wc.x,
 		-sn * velocity_wc.y + cs * velocity_wc.x );
 
@@ -330,31 +327,31 @@ void CarPhysics::Update(float delta_t, float steerangle, float throttle, float b
 	if(front_slip)
 		front_lateral_force *= 0.5f;
 
-	const Vector2 flatf(0, front_lateral_force);
+	const Engine::Vector2 flatf(0, front_lateral_force);
 
 	// lateral force on rear wheels
 	float rear_lateral_force = cap(-MAX_GRIP, MAX_GRIP, CA_R * slipanglerear) * weight;
 	if(rear_slip)
 		rear_lateral_force *= 0.5f;
 
-	const Vector2 flatr(0, rear_lateral_force);
+	const Engine::Vector2 flatr(0, rear_lateral_force);
 
 	// longititudinal force on rear wheels - very simple traction model
 	float rear_long_force = 100*(throttle - brake*signum(velocity.x));
 	if(rear_slip)
 		rear_long_force *= 0.5f;
 
-	const Vector2 ftraction(rear_long_force, 0.0f);
+	const Engine::Vector2 ftraction(rear_long_force, 0.0f);
 
 // Forces and torque on body
 
 	// drag and rolling resistance
-	const Vector2 resistance(
+	const Engine::Vector2 resistance(
 		-( RESISTANCE*velocity.x + DRAG*velocity.x*abs(velocity.x) ),
 		-( RESISTANCE*velocity.y + DRAG*velocity.y*abs(velocity.y) ) );
 
 	// sum forces
-	const Vector2 force(
+	const Engine::Vector2 force(
 		ftraction.x + sin(steerangle) * flatf.x + flatr.x + resistance.x,
 		ftraction.y + cos(steerangle) * flatf.y + flatr.y + resistance.y );
 
@@ -364,14 +361,14 @@ void CarPhysics::Update(float delta_t, float steerangle, float throttle, float b
 // Acceleration
 
 	// Newton F = m.a, therefore a = F/m
-	const Vector2 acceleration = force / carType.mass;
+	const Engine::Vector2 acceleration = force / carType.mass;
 
 	const float angular_acceleration = torque / carType.inertia;
 
 // Velocity and position
 
 	// transform acceleration from car reference frame to world reference frame
-	const Vector2 acceleration_wc(
+	const Engine::Vector2 acceleration_wc(
 		 cs * acceleration.y + sn * acceleration.x,
 		-sn * acceleration.y + cs * acceleration.x );
 

@@ -5,6 +5,6 @@
  *      Author: peterhigley
  */
 
-#include "Vector2.h"
+#include "Engine/Vector2.h"
 
-Vector2 Vector2::Empty(0.0f, 0.0f);
+Engine::Vector2 Engine::Vector2::Empty(0.0f, 0.0f);

@@ -10,14 +10,12 @@ set(SOURCES
 	CarPhysics.cpp
 	Vehicle.h
 	Vehicle.cpp
-	Vector2.h
-	Vector2.cpp
 	)
 
 
 add_executable(cartest ${GUI_TYPE} ${SOURCES})
 target_link_libraries(cartest 
-	glfw 
+	glfw
 	Engine
 	${OPENGL_gl_LIBRARY}
 	${OPENGL_glu_LIBRARY}
