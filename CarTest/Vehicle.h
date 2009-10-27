@@ -12,6 +12,10 @@ public :
 	void Update(float dt);
 	void Render();
 
+	const Engine::Vector2& getPosition() const { return carPhysics.getPosition(); }
+
+	void setSpeed(float speed);
+
 private:
 
 	CarPhysics carPhysics;

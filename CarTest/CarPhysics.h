@@ -36,6 +36,9 @@ public:
 	const Engine::Vector2& getPosition() const { return position_wc; }
 	float getFacing() const { return angle; }
 
+	void setFacing(float new_angle) { angle = new_angle; }
+	void setVelocity(const Engine::Vector2& new_velocity) { velocity_wc = new_velocity; }
+
 private:
 
 	const CarType& carType;

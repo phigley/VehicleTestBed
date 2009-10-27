@@ -20,16 +20,30 @@ int main( void )
 	bool running = true;
 
 	Engine::Window window(800,600, "Vehicle Test Bed");
-	window.setProjectionSize(1000,1000);
+
+	float projectionWidth = 1000.0f;
+	float projectionHeight = 1000.0f;
+
+	window.setProjectionSize(projectionWidth, projectionHeight);
 
 	Engine::Timer gameTime;
 	Vehicle vehicle;
+	vehicle.setSpeed(500);
 
 	while (window.isOpen())
 	{
 		const float dt = std::min(float(gameTime.popFrameTime()), maximumDeltaTime);
 
 		vehicle.Update(dt);
+
+		const float mag_x = fabs(vehicle.getPosition().x)*2;
+		const float mag_y = fabs(vehicle.getPosition().y)*2;
+		if ( mag_y > projectionWidth || mag_x > projectionHeight )
+		{
+			projectionWidth = std::max(projectionWidth, mag_y);
+			projectionHeight = std::max(projectionHeight, mag_x);
+			window.setProjectionSize(projectionWidth, projectionHeight);
+		}
 
 		Engine::FrameBlock frameBlock(minimumFrameTime - gameTime.getFrameTime());
 

@@ -44,3 +44,8 @@ void Vehicle::Render()
 	}
 }
 	
+void Vehicle::setSpeed(float speed)
+{
+	Engine::Vector2 velocity(speed*cosf(carPhysics.getFacing()), speed*sinf(carPhysics.getFacing()));
+	carPhysics.setVelocity(velocity);
+}
