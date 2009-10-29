@@ -27,7 +27,7 @@ public:
 	CarPhysics(const CarType& car_type);
 	~CarPhysics();
 
-	void Update(float deltaTime, float steerangle, float throttle, float brake);
+	void update(float deltaTime, float steerangle, float throttle, float brake);
 
 	const Engine::Vector2& getPosition() const { return position_wc; }
 	float getFacing() const { return angle; }

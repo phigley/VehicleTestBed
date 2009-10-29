@@ -70,7 +70,7 @@ CarPhysics::~CarPhysics()
 {
 }
 
-void CarPhysics::Update(float delta_t, float steerangle, float throttle, float brake)
+void CarPhysics::update(float delta_t, float steerangle, float throttle, float brake)
 {
 	const float sn = sin(angle);
 	const float cs = cos(angle);
@@ -83,8 +83,8 @@ void CarPhysics::Update(float delta_t, float steerangle, float throttle, float b
 	//	bangz: Velocity of Car. Vlat and Vlong
 	// transform velocity in world reference frame to velocity in car reference frame
 	const Engine::Vector2 velocity(
-		 cs * velocity_wc.x + sn * velocity_wc.y,
-		 sn * velocity_wc.x - cs * velocity_wc.y  );
+		 cs * velocity_wc.x - sn * velocity_wc.y,
+		-sn * velocity_wc.x - cs * velocity_wc.y  );
 
 // Lateral force on wheels
 //
@@ -162,8 +162,8 @@ void CarPhysics::Update(float delta_t, float steerangle, float throttle, float b
 
 	// transform acceleration from car reference frame to world reference frame
 	const Engine::Vector2 acceleration_wc(
-		 cs * acceleration.x + sn * acceleration.y,
-		 sn * acceleration.x - cs * acceleration.y );
+		 cs * acceleration.x - sn * acceleration.y,
+		-sn * acceleration.x - cs * acceleration.y );
 
 	// velocity is integrated acceleration
 	//

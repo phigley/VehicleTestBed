@@ -9,8 +9,8 @@ public :
 
 	Vehicle();
 
-	void Update(float dt);
-	void Render();
+	void update(float dt);
+	void render();
 
 	const Engine::Vector2& getPosition() const { return carPhysics.getPosition(); }
 
@@ -18,7 +18,9 @@ public :
 
 private:
 
-	CarPhysics carPhysics;
+	CarPhysics	carPhysics;
+
+	float		runningTime;
 };
 
 #endif // VEHICILE_H_

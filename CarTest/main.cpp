@@ -44,7 +44,7 @@ int main( void )
 			window.setProjectionSize(projectionWidth, projectionHeight);
 		}
 
-		vehicle.Update(dt);
+		vehicle.update(dt);
 
 		const float mag_x = fabs(vehicle.getPosition().x)*2;
 		const float mag_y = fabs(vehicle.getPosition().y)*2;
@@ -57,7 +57,7 @@ int main( void )
 
 		Engine::FrameBlock frameBlock(minimumFrameTime - gameTime.getFrameTime());
 
-		vehicle.Render();
+		vehicle.render();
 
 		if (glfwGetKey( GLFW_KEY_ESC ) == GLFW_PRESS)
 		{

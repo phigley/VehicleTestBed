@@ -4,26 +4,27 @@
 
 Vehicle::Vehicle()
 	: carPhysics(CarType::BasicCar)
+	, runningTime(0.0f)
 {
-
 }
 
-void Vehicle::Update(float dt)
+void Vehicle::update(float dt)
 {
-	carPhysics.Update(dt, 0.1f, 100, 0);
+	runningTime += dt;
+	carPhysics.update(dt, M_PI/16.0f*sinf(runningTime*M_PI), 100, 0);
 }
 
-void Vehicle::Render()
+void Vehicle::render()
 {
 	Engine::Matrix2Block mainMatrix(carPhysics.getPosition(), carPhysics.getFacing());
 
 
-	const float body_width = 1;
-	const float body_height = 0.4;
+	const float body_width = 1.0f;
+	const float body_height = 0.4f;
 
 
-	const float tire_width = 0.2;
-	const float tire_height = 0.1;
+	const float tire_width = 0.2f;
+	const float tire_height = 0.1f;
 
 	// Body
 	Engine::Rectangle::Draw(body_width, body_height, Engine::Color::Red);
