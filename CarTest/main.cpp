@@ -21,18 +21,28 @@ int main( void )
 
 	Engine::Window window(800,600, "Vehicle Test Bed");
 
-	float projectionWidth = 1000.0f;
-	float projectionHeight = 1000.0f;
+	const float originalProjectionWidth = 50.0f;
+	const float originalProjectionHeight = 50.0f;
+	float projectionWidth = originalProjectionWidth;
+	float projectionHeight = originalProjectionHeight;
 
 	window.setProjectionSize(projectionWidth, projectionHeight);
 
 	Engine::Timer gameTime;
 	Vehicle vehicle;
-	vehicle.setSpeed(500);
+	//vehicle.setSpeed(500);
 
 	while (window.isOpen())
 	{
 		const float dt = std::min(float(gameTime.popFrameTime()), maximumDeltaTime);
+
+		if (glfwGetKey('R'))
+		{
+			vehicle = Vehicle();
+			projectionWidth = originalProjectionWidth;
+			projectionHeight = originalProjectionHeight;
+			window.setProjectionSize(projectionWidth, projectionHeight);
+		}
 
 		vehicle.Update(dt);
 

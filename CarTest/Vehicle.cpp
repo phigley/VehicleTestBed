@@ -10,7 +10,7 @@ Vehicle::Vehicle()
 
 void Vehicle::Update(float dt)
 {
-	carPhysics.Update(dt, 0.1f, 1000, 0);
+	carPhysics.Update(dt, 0.1f, 100, 0);
 }
 
 void Vehicle::Render()
@@ -18,12 +18,12 @@ void Vehicle::Render()
 	Engine::Matrix2Block mainMatrix(carPhysics.getPosition(), carPhysics.getFacing());
 
 
-	const float body_width = 10;
-	const float body_height = 25;
+	const float body_width = 1;
+	const float body_height = 0.4;
 
 
-	const float tire_width = 2;
-	const float tire_height = 5;
+	const float tire_width = 0.2;
+	const float tire_height = 0.1;
 
 	// Body
 	Engine::Rectangle::Draw(body_width, body_height, Engine::Color::Red);

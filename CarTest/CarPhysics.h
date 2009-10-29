@@ -11,15 +11,11 @@ struct CarType
 	float	h;				// in m, height of CM from ground
 	float	mass;			// in kg
 	float	inertia;		// in kg.m
-	float	length,width;
-	float	wheellength,wheelwidth;
 
 	static const CarType  BasicCar;
 
 	CarType(float b_, float c_, float h_,
-			float mass_, float ineritia_,
-			float length_, float width_,
-			float wheellength_, float wheelwidth_);
+			float mass_, float ineritia_);
 };
 
 class CarPhysics
@@ -41,7 +37,7 @@ public:
 
 private:
 
-	const CarType& carType;
+	const CarType* carTypePtr;
 
 	Engine::Vector2	position_wc;		// position of car center in world coordinates
 	Engine::Vector2	velocity_wc;		// velocity vector of car in world coordinates

@@ -41,29 +41,22 @@ namespace
 }
 
 const CarType CarType::BasicCar(1.0f, 1.0f, 1.0f,
-	1500, 1500,
-	3.0f, 1.5f,
-	0.7f, 0.3f);
+	1500, 1500);
 
 CarType::CarType(float b_, float c_, float h_, float mass_,
-		float inertia_, float length_, float width_,
-		float wheellength_, float wheelwidth_)
+		float inertia_)
 	: wheelbase(b_ + c_)
 	, b(b_)
 	, c(c_)
 	, h(h_)
 	, mass(mass_)
 	, inertia(inertia_)
-	, length(length_)
-	, width(width_)
-	, wheellength(wheellength_)
-	, wheelwidth(wheelwidth_)
 {
 
 }
 
 CarPhysics::CarPhysics(const CarType& car_type)
-	: carType(car_type)
+	: carTypePtr(&car_type)
 
 	, front_slip(false)
 	, rear_slip(false)
@@ -83,12 +76,15 @@ void CarPhysics::Update(float delta_t, float steerangle, float throttle, float b
 	const float cs = cos(angle);
 
 	// SAE convention: x is to the front of the car, y is to the right, z is down
+	//
+
+	// world reference
 
 	//	bangz: Velocity of Car. Vlat and Vlong
 	// transform velocity in world reference frame to velocity in car reference frame
 	const Engine::Vector2 velocity(
-		 cs * velocity_wc.y + sn * velocity_wc.x,
-		-sn * velocity_wc.y + cs * velocity_wc.x );
+		 cs * velocity_wc.x + sn * velocity_wc.y,
+		 sn * velocity_wc.x - cs * velocity_wc.y  );
 
 // Lateral force on wheels
 //
@@ -96,7 +92,7 @@ void CarPhysics::Update(float delta_t, float steerangle, float throttle, float b
 	// v = yawrate * r where r is distance of wheel to CG (approx. half wheel base)
 	// yawrate (ang.velocity) must be in rad/s
 	//
-	const float yawspeed = carType.wheelbase * 0.5f * angularvelocity;
+	const float yawspeed = carTypePtr->wheelbase * 0.5f * angularvelocity;
 
 	//bangz: velocity.x = fVLong_, velocity.y = fVLat_
 	float rot_angle;
@@ -117,7 +113,7 @@ void CarPhysics::Update(float delta_t, float steerangle, float throttle, float b
 	const float slipanglerear  = sideslip - rot_angle;
 
 	// weight per axle = half car mass times 1G (=9.8m/s^2)
-	const float weight = carType.mass * GRAVITY * 0.5f;
+	const float weight = carTypePtr->mass * GRAVITY * 0.5f;
 
 	// lateral force on front wheels = (Ca * slip angle) capped to friction circle * load
 	float front_lateral_force = cap(-MAX_GRIP, MAX_GRIP, CA_F * slipanglefront) * weight;
@@ -153,21 +149,21 @@ void CarPhysics::Update(float delta_t, float steerangle, float throttle, float b
 		ftraction.y + cos(steerangle) * flatf.y + flatr.y + resistance.y );
 
 	// torque on body from lateral forces
-	const float torque = carType.b * flatf.y - carType.c * flatr.y;
+	const float torque = carTypePtr->b * flatf.y - carTypePtr->c * flatr.y;
 
 // Acceleration
 
 	// Newton F = m.a, therefore a = F/m
-	const Engine::Vector2 acceleration = force / carType.mass;
+	const Engine::Vector2 acceleration = force / carTypePtr->mass;
 
-	const float angular_acceleration = torque / carType.inertia;
+	const float angular_acceleration = torque / carTypePtr->inertia;
 
 // Velocity and position
 
 	// transform acceleration from car reference frame to world reference frame
 	const Engine::Vector2 acceleration_wc(
-		 cs * acceleration.y + sn * acceleration.x,
-		-sn * acceleration.y + cs * acceleration.x );
+		 cs * acceleration.x + sn * acceleration.y,
+		 sn * acceleration.x - cs * acceleration.y );
 
 	// velocity is integrated acceleration
 	//
