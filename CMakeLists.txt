@@ -11,7 +11,7 @@ add_subdirectory(Engine)
 set(ENGINE_INCLUDE_DIR ${CMAKE_SOURCE_DIR}/Engine/include)
 
 if(APPLE)
-   set(GUI_TYPE MACOSX_BUNDLE)
+   # set(GUI_TYPE MACOSX_BUNDLE)
    find_library(CARBON_LIBRARY Carbon)
    mark_as_advanced(CARBON_LIBRARY)
    set(PLATFORM_LIBS ${CARBON_LIBRARY})
