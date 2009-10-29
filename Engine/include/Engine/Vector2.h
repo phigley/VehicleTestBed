@@ -31,6 +31,21 @@ namespace Engine
 			return x*rhs.x  + y*rhs.y;
 		}
 
+		float cross(const Vector2& rhs) const
+		{
+			return x*rhs.y - y*rhs.x;
+		}
+
+		float magSqr() const
+		{
+			return x*x + y*y;
+		}
+
+		float mag() const
+		{
+			return sqrtf(x*x + y*y);
+		}
+
 		float distanceTo(const Vector2& rhs) const
 		{
 			const float dx = x - rhs.x;
@@ -38,11 +53,28 @@ namespace Engine
 
 			return sqrtf(dx*dx + dy*dy);
 		}
+
+		Vector2 rotatedBy(float angle) const
+		{
+			const float cs = cosf(angle);
+			const float sn = sinf(angle);
+
+			return Vector2( cs*x - sn*y, sn*x + cs*y );
+		}
+
+		Vector2& operator+=(const Vector2& rhs)
+		{
+			x += rhs.x;
+			y += rhs.y;
+			return *this;
+		}
 	};
 
 	inline Vector2 operator+(const Vector2& lhs, const Vector2& rhs)
 	{
-		return Vector2(lhs.x + rhs.x, lhs.y + rhs.y);
+		Vector2 result = lhs;
+		result += rhs;
+		return result;
 	}
 
 	inline Vector2 operator-(const Vector2& lhs, const Vector2& rhs)

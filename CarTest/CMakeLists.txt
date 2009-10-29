@@ -6,6 +6,8 @@ include_directories(${ENGINE_INCLUDE_DIR})
 
 set(SOURCES
 	main.cpp
+	RigidBody.h
+	RigidBody.cpp
 	CarPhysics.h
 	CarPhysics.cpp
 	Vehicle.h

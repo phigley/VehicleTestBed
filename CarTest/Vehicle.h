@@ -2,6 +2,7 @@
 #define VEHICILE_H_
 
 #include "CarPhysics.h"
+#include "RigidBody.h"
 
 class Vehicle
 {
@@ -16,9 +17,11 @@ public :
 
 	void setSpeed(float speed);
 
+	void reset();
 private:
 
-	CarPhysics carPhysics;
+	CarPhysics	carPhysics;
+	RigidBody	rigidBody;
 };
 
 #endif // VEHICILE_H_

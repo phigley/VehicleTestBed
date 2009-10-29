@@ -38,7 +38,7 @@ int main( void )
 
 		if (glfwGetKey('R'))
 		{
-			vehicle = Vehicle();
+			vehicle.reset();
 			projectionWidth = originalProjectionWidth;
 			projectionHeight = originalProjectionHeight;
 			window.setProjectionSize(projectionWidth, projectionHeight);
