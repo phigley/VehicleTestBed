@@ -2,6 +2,7 @@
 #define WINDOW_H_
 
 #include <GL/glfw.h>
+#include "Engine/Vector2.h"
 
 namespace Engine
 {
@@ -13,6 +14,8 @@ namespace Engine
 		~Window();
 
 		void setProjectionSize(float width, float height);
+
+		Engine::Vector2 getProjectionSize() const;
 
 		bool isOpen() const { return glfwGetWindowParam( GLFW_OPENED ) == GL_TRUE; }
 	};

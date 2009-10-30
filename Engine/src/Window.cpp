@@ -10,13 +10,16 @@ namespace
 	// its reshape callback.
 	double projectionWidth = 1.0;
 	double projectionHeight = 1.0;
+	
+	double adjustedProjectionWidth = projectionWidth;
+	double adjustedProjectionHeight = projectionHeight;
 
 	void GLFWCALL reshape( int w, int h )
 	{
 	   glViewport( 0, 0, (GLsizei)w, (GLsizei)h );
 
-		double adjustedProjectionWidth = projectionWidth;
-		double adjsutedProjectionHeight = projectionHeight;
+		adjustedProjectionWidth = projectionWidth;
+		adjustedProjectionHeight = projectionHeight;
 
 		// w/pw > h/ph
 		if (double(w)*projectionHeight >= double(h)*projectionWidth)
@@ -25,12 +28,12 @@ namespace
 		}
 		else
 		{
-			adjsutedProjectionHeight = double(h)/double(w)*projectionWidth;
+			adjustedProjectionHeight = double(h)/double(w)*projectionWidth;
 		}
 
 	   glMatrixMode( GL_PROJECTION );
 	   glLoadIdentity();
-	   gluOrtho2D(-adjustedProjectionWidth/2, adjustedProjectionWidth/2, -adjsutedProjectionHeight/2, adjsutedProjectionHeight/2);
+	   gluOrtho2D(-adjustedProjectionWidth/2, adjustedProjectionWidth/2, -adjustedProjectionHeight/2, adjustedProjectionHeight/2);
 	}
 }
 
@@ -94,4 +97,9 @@ void Engine::Window::setProjectionSize(float width, float height)
 	int w,h;
 	glfwGetWindowSize(&w, &h);
 	reshape(w,h);
+}
+
+Engine::Vector2 Engine::Window::getProjectionSize() const
+{
+	return Engine::Vector2(float(adjustedProjectionWidth), float(adjustedProjectionHeight));
 }

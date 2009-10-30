@@ -3,6 +3,7 @@
 #include <math.h>
 #include <stdlib.h>
 #include "Vehicle.h"
+#include "GroundPlane.h"
 #include "Engine.h"
 #include <algorithm>
 
@@ -12,14 +13,11 @@ namespace
 	const float    maximumDeltaTime = 0.1f;
 }
 
-
-
-
 int main( void )
 {
 	bool running = true;
 
-	Engine::Window window(800,600, "Vehicle Test Bed");
+	Engine::Window window(600,600, "Vehicle Test Bed");
 
 	const float originalProjectionWidth = 50.0f;
 	const float originalProjectionHeight = 50.0f;
@@ -29,6 +27,9 @@ int main( void )
 	window.setProjectionSize(projectionWidth, projectionHeight);
 
 	Engine::Timer gameTime;
+	
+	GroundPlane groundPlane(10, Engine::Color(0.25f, 0.25f, 0.25f, 0.5f), Engine::Color(0.5f,0.5f, 0.5f, 0.5f));
+	
 	Vehicle vehicle;
 	//vehicle.setSpeed(500);
 
@@ -57,6 +58,7 @@ int main( void )
 
 		Engine::FrameBlock frameBlock(minimumFrameTime - gameTime.getFrameTime());
 
+		groundPlane.render(window);
 		vehicle.render();
 
 		if (glfwGetKey( GLFW_KEY_ESC ) == GLFW_PRESS)

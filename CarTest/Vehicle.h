@@ -1,5 +1,5 @@
-#ifndef VEHICILE_H_
-#define VEHICILE_H_
+#ifndef VEHICLE_H_
+#define VEHICLE_H_
 
 #include "CarPhysics.h"
 
@@ -23,5 +23,5 @@ private:
 	float		runningTime;
 };
 
-#endif // VEHICILE_H_
+#endif // VEHICLE_H_
 

@@ -9,7 +9,7 @@ namespace Engine
 
 	namespace Rectangle
 	{
-		void Draw(float width, float height, const Color& color);
+		void Draw(float halfWidth, float halfHeight, const Color& color);
 	}
 }
 

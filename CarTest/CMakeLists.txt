@@ -10,6 +10,8 @@ set(SOURCES
 	CarPhysics.cpp
 	Vehicle.h
 	Vehicle.cpp
+	GroundPlane.h
+	GroundPlane.cpp
 	)
 
 
