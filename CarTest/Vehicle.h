@@ -21,6 +21,7 @@ private:
 	CarPhysics	carPhysics;
 
 	float		runningTime;
+	float		steeringAngle;
 };
 
 #endif // VEHICLE_H_

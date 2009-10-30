@@ -5,13 +5,15 @@
 Vehicle::Vehicle()
 	: carPhysics(CarType::BasicCar)
 	, runningTime(0.0f)
+	, steeringAngle(0.0f)
 {
 }
 
 void Vehicle::update(float dt)
 {
 	runningTime += dt;
-	carPhysics.update(dt, M_PI/16.0f*sinf(runningTime*M_PI), 100, 0);
+	steeringAngle = M_PI/16.0f*sinf(runningTime*M_PI);
+	carPhysics.update(dt, steeringAngle, 100, 0);
 }
 
 void Vehicle::render()
@@ -29,20 +31,34 @@ void Vehicle::render()
 	// Body
 	Engine::Rectangle::Draw(body_width, body_height, Engine::Color::Red);
 
-	const Engine::Vector2 offsets[] =
+	// Front left tire.
 	{
-		Engine::Vector2(body_width*0.9f - tire_width, body_height - tire_height),
-		Engine::Vector2(body_width*0.9f - tire_width, -body_height + tire_height),
-
-		Engine::Vector2(-body_width*0.9f + tire_width, body_height - tire_height),
-		Engine::Vector2(-body_width*0.9f + tire_width, -body_height + tire_height)
-	};
-
-	for( int i = 0; i < 4; ++i )
-	{
-		Engine::Matrix2Block tireMatrix(offsets[i]);
+		const Engine::Vector2 offset(body_width*0.9f - tire_width, body_height - tire_height);
+		Engine::Matrix2Block tireMatrix(offset, steeringAngle);
 		Engine::Rectangle::Draw(tire_width, tire_height, Engine::Color::Green);
 	}
+
+	// Front right tire.
+	{
+		const Engine::Vector2 offset(body_width*0.9f - tire_width, -body_height + tire_height);
+		Engine::Matrix2Block tireMatrix(offset, steeringAngle);
+		Engine::Rectangle::Draw(tire_width, tire_height, Engine::Color::Green);
+	}
+
+	// Rear right tire.
+	{
+		const Engine::Vector2 offset(-body_width*0.9f + tire_width, body_height - tire_height);
+		Engine::Matrix2Block tireMatrix(offset);
+		Engine::Rectangle::Draw(tire_width, tire_height, Engine::Color::Green);
+	}
+
+	// Rear left tire.
+	{
+		const Engine::Vector2 offset(-body_width*0.9f + tire_width, -body_height + tire_height);
+		Engine::Matrix2Block tireMatrix(offset);
+		Engine::Rectangle::Draw(tire_width, tire_height, Engine::Color::Green);
+	}
+
 }
 	
 void Vehicle::setSpeed(float speed)
